@@ -5,6 +5,7 @@ import axios from "axios";
 import "components/Application.scss";
 import DayList from "./DayList";
 import Appointment from "components/Appointment";
+// import selectors from "../helpers/selectors";
 
 const appointments = [
   {
@@ -72,14 +73,22 @@ const appointments = [
 // ];
 
 export default function Application(props) {
-  const [defaultDay, selectedDay] = useState("");
-  const [days, setDays] = useState([]);
+  const [state, setState] = useState({
+    day: "Monday",
+    days: [],
+    appointments: {}
+  });
+  // const {day, days, appointments} = state;
+  const setDay = day => setState({ ...state, day });
+  const setDays = days => setState(prev => ({ ...prev, days }));
 
   useEffect(() => {
     axios
-      .get("http://localhost:8001/api/days")
+      .get("/api/days")
+      // .then(data => setState(Object.assign({}, state, {day: data.data.name})))
       .then(data => setDays(data.data))
   }, []);
+
 
   return (
     <main className="layout">
@@ -92,9 +101,9 @@ export default function Application(props) {
   <hr className="sidebar__separator sidebar--centered" />
   <nav className="sidebar__menu">
     <DayList
-      days={days}
-      day={defaultDay}
-      setDay={selectedDay}
+      days={state.days}
+      day={state.day}
+      setDay={setDay}
     />
   </nav>
   <img
