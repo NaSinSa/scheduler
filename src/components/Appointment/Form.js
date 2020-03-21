@@ -3,14 +3,13 @@ import React, { useState } from "react";
 import Button from "components/Button";
 import InterviewerList from "components/InterviewList";
 
-
 export default function Form(props) {
   const { name, interviewers, interviewer, onSave, onCancel } = props;
-  const [username, setName] = useState(name || "");
+  const [username, setUsername] = useState(name || "");
   const [director, setInterviewer] = useState(interviewer || null);
 
   const reset = function() {
-    setName("");
+    setUsername("");
     setInterviewer(null);
   }
 
@@ -26,7 +25,7 @@ export default function Form(props) {
         <input
             className="appointment__create-input text--semi-bold"
             value={username}
-            onChange={e => setName(e.target.value)}
+            onChange={e => setUsername(e.target.value)}
             type="text"
             placeholder="Enter Student Name"
         />
