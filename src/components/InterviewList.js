@@ -11,7 +11,6 @@ const className = require('classnames');
     const interviewrChecker = props.interviewers.map((ele) => {
       return (
         <InterviewerListItem 
-          // className={interviewerClass}
           key={ele.id} 
           name={ele.name} 
           avatar={ele.avatar} 
@@ -21,10 +20,9 @@ const className = require('classnames');
       );
     });
 
-    // const interviewerClass = ("interviewers__header");
-
-    return ( <ul className={interviewerListClass}>
-    {interviewrChecker}
-    </ul>
+    return ( 
+      <ul className={interviewerListClass}>
+        {interviewrChecker}
+      </ul>
     );
   }

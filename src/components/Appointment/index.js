@@ -8,6 +8,7 @@ import Empty from "./Empty"
 import Form from "./Form"
 import Status from "./Status"
 import Confirm from "./Confirm"
+import Error from "./Error"
 import useVisualMode  from "../../hooks/useVisualMode"
 
 const EMPTY = "EMPTY";
@@ -17,6 +18,8 @@ const SAVING = "SAVING";
 const DELETING = "DELETING";
 const CONFIRM = "CONFIRM";
 const EDIT = "EDIT";
+const ERROR_SAVE = "ERROR_SAVE";
+const ERROR_DELETE = "ERROR_DELETE";
 
 
 export default function Appointment(props) {
@@ -31,8 +34,9 @@ export default function Appointment(props) {
     };
     transition(SAVING);
     setTimeout(() => {
-      Promise.resolve(props.bookInterview(props.id, interview))
-        .then(transition(SHOW, true));
+      props.bookInterview(props.id, interview)
+        .then(() => transition(SHOW, true))
+        .catch(() => transition(ERROR_SAVE, true))
     }, 1000)
   };
 
@@ -42,10 +46,11 @@ export default function Appointment(props) {
   
   function confirm(confirm, cancel) {
     if (confirm) {
-      transition(DELETING);
+      transition(DELETING, true);
       setTimeout(() => {
-        Promise.resolve(props.cancelInterview(props.id))
-          .then(transition(EMPTY));
+         props.cancelInterview(props.id)
+          .then(() => transition(EMPTY, true))
+          .catch(() => transition(ERROR_DELETE, true))
       }, 1000);
     } else if (cancel) {
       transition(SHOW, true);
@@ -78,7 +83,7 @@ export default function Appointment(props) {
         {mode === CREATE && (
           <Form
             interviewers={props.interviewers}
-            onCancel={() => back(CREATE)}
+            onCancel={() => back()}
             onSave={save}
           />
         )}
@@ -89,6 +94,18 @@ export default function Appointment(props) {
             interviewers={props.interviewers}
             onCancel={() => back(CREATE)}
             onSave={save}
+          />
+        )}
+        {mode === ERROR_DELETE && (
+          <Error 
+            message={"Failed to cancel."}
+            onClose={() => back()}
+          />
+        )}
+        {mode === ERROR_SAVE && (
+          <Error 
+            message={"Failed to book."}
+            onClose={() => back()}
           />
         )}
       </article>
