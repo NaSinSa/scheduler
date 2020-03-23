@@ -30,35 +30,19 @@ const useApplicationData = function() {
 
   const setDay = day => setState({ ...state, day });
 
-  function decreaseSpot (id) {
-    // const arrOfAppId = state.days.filter(ele => {
-    //   return ele.appointments.find(appId => appId === id)
-    // })[0].appointments;
-    
-    // let spots = 0;
-  
-    // for (let i = 0; i < arrOfAppId.length; i++) {
-    //   state.appointments.forEach(ele => ele.id === arrOfAppId[i] && !ele.interview ? spots++ : null)
-    // }
+  function spotCalculator (id, boolean = false) {
 
+    let spot = 0;
+    boolean ? spot-- : spot++;
     const days = state.days.filter(ele => {
-      return [ele.appointments.find(appId => appId === id) ? ele.spots-- : null, ele]
+      return [ele.appointments.find(appId => appId === id) ? ele.spots += spot : null, ele]
     });
-    return setState({...state, days});
-  };
-
-  function increaseSpot (id) {
-
-    const days = state.days.filter(ele => {
-      return [ele.appointments.find(appId => appId === id) ? ele.spots++ : null, ele]
-    });
-
     return setState({...state, days});
   };
 
   function bookInterview(id, interview) {
     const [appointments, index] = getObjectValue(state.appointments, interview, id);
-    decreaseSpot(id);
+    spotCalculator(id, true);
     return axios.put(`/api/appointments/${id}`, { interview: interview })
       .then(res => console.log(res))
       .then(() => {
@@ -70,7 +54,7 @@ const useApplicationData = function() {
   };
   
   function cancelInterview(id) {
-    increaseSpot(id);
+    spotCalculator(id);
     return axios.delete(`/api/appointments/${id}`)
     .then(res => console.log(res))
     .then(() => {
