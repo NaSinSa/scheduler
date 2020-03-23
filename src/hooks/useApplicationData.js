@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import { getAppointmentsForDay, getObjectValue } from "../helpers/selectors";
+import { func } from "prop-types";
 
 const useApplicationData = function() {
   const [state, setState] = useState({
@@ -9,7 +10,7 @@ const useApplicationData = function() {
     days: [],
     appointments: [],
     interviewers: {},
-    trigger: 0
+    // trigger: 0
   });
 
   useEffect(() => {
@@ -29,41 +30,55 @@ const useApplicationData = function() {
 
   const setDay = day => setState({ ...state, day });
 
+  function decreaseSpot (id) {
+    // const arrOfAppId = state.days.filter(ele => {
+    //   return ele.appointments.find(appId => appId === id)
+    // })[0].appointments;
+    
+    // let spots = 0;
+  
+    // for (let i = 0; i < arrOfAppId.length; i++) {
+    //   state.appointments.forEach(ele => ele.id === arrOfAppId[i] && !ele.interview ? spots++ : null)
+    // }
+
+    const days = state.days.filter(ele => {
+      return [ele.appointments.find(appId => appId === id) ? ele.spots-- : null, ele]
+    });
+    return setState({...state, days});
+  };
+
+  function increaseSpot (id) {
+
+    const days = state.days.filter(ele => {
+      return [ele.appointments.find(appId => appId === id) ? ele.spots++ : null, ele]
+    });
+
+    return setState({...state, days});
+  };
+
   function bookInterview(id, interview) {
     const [appointments, index] = getObjectValue(state.appointments, interview, id);
+    decreaseSpot(id);
     return axios.put(`/api/appointments/${id}`, { interview: interview })
       .then(res => console.log(res))
       .then(() => {
         setState({ 
           ...state,
           appointments,
-          trigger: state.trigger + 1
         })
       })
   };
   
   function cancelInterview(id) {
-  
+    increaseSpot(id);
     return axios.delete(`/api/appointments/${id}`)
-      .then(res => console.log(res))
-      .then(() => {
-        setState({
-          ...state,
-          trigger: state.trigger + 1
-        })
+    .then(res => console.log(res))
+    .then(() => {
+      setState({
+        ...state,
       })
-  };
-
-
-  useEffect(() => {
-    axios.get("/api/days")
-    .then(res => {
-      setState(prev => ({
-        ...prev, 
-        days: res["data"], 
-      }))
     })
-  }, [state.trigger]);
+  };
   
   return { state, setDay, bookInterview, cancelInterview };
 }

@@ -35,5 +35,5 @@ export {
   getAppointmentsForDay, 
   getInterview, 
   getInterviewersForDay,
-  getObjectValue
+  getObjectValue,
 }
