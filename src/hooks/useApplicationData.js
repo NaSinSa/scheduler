@@ -40,9 +40,9 @@ const useApplicationData = function() {
     return setState({...state, days});
   };
 
-  function bookInterview(id, interview) {
+  function bookInterview(id, interview, edit) {
     const [appointments, index] = getObjectValue(state.appointments, interview, id);
-    spotCalculator(id, true);
+    if (!edit) {spotCalculator(id, true)};
     return axios.put(`/api/appointments/${id}`, { interview: interview })
       .then(res => console.log(res))
       .then(() => {

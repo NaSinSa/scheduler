@@ -4,7 +4,7 @@ import Button from "components/Button";
 import InterviewerList from "components/InterviewList";
 
 export default function Form(props) {
-  const { name, interviewers, interviewer, onSave, onCancel } = props;
+  const { name, interviewers, interviewer, onSave, onCancel, edit } = props;
   const [username, setUsername] = useState(name || "");
   const [director, setInterviewer] = useState(interviewer || null);
   const [error, setError] = useState("");
@@ -25,7 +25,7 @@ export default function Form(props) {
       return;
     }
   
-    props.onSave(username, director);
+    props.onSave(username, director, edit);
   };
 
   return (
