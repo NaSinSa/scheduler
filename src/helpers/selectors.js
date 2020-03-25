@@ -7,10 +7,10 @@ const getAppointmentsForDay = function (state, day) {
   }
 };
 
-const getAppointmentsById = (state, id) => { 
-  const filteredApp = state.appointments.filter(app => app.id === id);
-  return filteredApp;
-};
+// const getAppointmentsById = (state, id) => { 
+//   const filteredApp = state.appointments.filter(app => app.id === id);
+//   return filteredApp;
+// };
 
 const getObjectValue = (objInArr, obj, id) => {
   const index = objInArr.findIndex(ele => ele.id === id);
