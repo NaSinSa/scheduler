@@ -7,15 +7,10 @@ const getAppointmentsForDay = function (state, day) {
   }
 };
 
-// const getAppointmentsById = (state, id) => { 
-//   const filteredApp = state.appointments.filter(app => app.id === id);
-//   return filteredApp;
-// };
-
-const getObjectValue = (objInArr, obj, id) => {
-  const index = objInArr.findIndex(ele => ele.id === id);
-  objInArr[index]["interview"] = obj;
-  return [objInArr, index];
+const getAppointmentsById = (appointments, obj, id) => {               
+  const index = appointments.findIndex(ele => ele.id === id);
+  appointments[index]["interview"] = obj;
+  return appointments;
 }
 
 const getInterview = function(state, interview) {
@@ -35,5 +30,5 @@ export {
   getAppointmentsForDay, 
   getInterview, 
   getInterviewersForDay,
-  getObjectValue,
+  getAppointmentsById,
 }

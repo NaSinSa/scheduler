@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-import { getAppointmentsForDay, getObjectValue } from "../helpers/selectors";
+import { getAppointmentsForDay, getAppointmentsById } from "../helpers/selectors";
 import { func } from "prop-types";
 
 const useApplicationData = function() {
@@ -10,7 +10,6 @@ const useApplicationData = function() {
     days: [],
     appointments: [],
     interviewers: {},
-    // trigger: 0
   });
 
   useEffect(() => {
@@ -30,7 +29,7 @@ const useApplicationData = function() {
 
   const setDay = day => setState({ ...state, day });
 
-  function spotCalculator (id, boolean = false) {
+  function spotCalculator (id, boolean = false) {     //update spots. boolean ? new appointment : delete appointment 
 
     let spot = 0;
     boolean ? spot-- : spot++;
@@ -41,8 +40,8 @@ const useApplicationData = function() {
   };
 
   function bookInterview(id, interview, edit) {
-    const [appointments, index] = getObjectValue(state.appointments, interview, id);
-    if (!edit) {spotCalculator(id, true)};
+    const appointments = getAppointmentsById(state.appointments, interview, id);
+    if (!edit) {spotCalculator(id, true)};                                              // edit ? editing, no spot change : new booking, spot--
     return axios.put(`/api/appointments/${id}`, { interview: interview })
       .then(res => console.log(res))
       .then(() => {
