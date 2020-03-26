@@ -27,8 +27,8 @@ export default function Appointment(props) {
     props.interview ? SHOW : EMPTY
   );
 
-  function save(name, interviewer, edit = false) {
-    const interview = {
+  function save(name, interviewer, edit = false) { //edit ? editing, no spot change : new booking, spot--
+    const interview = {                            //for bookInterview in useApplicationData.js
       student: name,
       interviewer
     };
@@ -44,7 +44,7 @@ export default function Appointment(props) {
     transition(CONFIRM);
   };
   
-  function confirm(confirm, cancel) {
+  function confirm(confirm) {  //confirm ? yes, delete it : no, don't
     if (confirm) {
       transition(DELETING, true);
       setTimeout(() => {
@@ -52,7 +52,7 @@ export default function Appointment(props) {
           .then(() => transition(EMPTY, true))
           .catch(() => transition(ERROR_DELETE, true))
       }, 1000);
-    } else if (cancel) {
+    } else {
       transition(SHOW, true);
     }
   };

@@ -21,7 +21,14 @@ const useApplicationData = function() {
       setState(prev => ({
         ...prev, 
         days: all[0]["data"], 
-        appointments: getAppointmentsForDay({...prev, days: all[0]["data"], appointments: all[1]["data"], interviewers: all[2]["data"]}, state.day),
+        appointments: getAppointmentsForDay({
+          ...prev, 
+          days: all[0]["data"], 
+          appointments: all[1]["data"], 
+          interviewers: all[2]["data"]
+        }, 
+        state.day
+        ),
         interviewers: all[2]["data"]
       }))
     })
@@ -41,7 +48,7 @@ const useApplicationData = function() {
 
   function bookInterview(id, interview, edit) {
     const appointments = getAppointmentsById(state.appointments, interview, id);
-    if (!edit) {spotCalculator(id, true)};                                              // edit ? editing, no spot change : new booking, spot--
+    if (!edit) {spotCalculator(id, true)};                  // edit ? editing, no spot change : new booking, spot--
     return axios.put(`/api/appointments/${id}`, { interview: interview })
       .then(res => console.log(res))
       .then(() => {
