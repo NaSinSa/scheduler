@@ -8,7 +8,7 @@ import { getInterview, getInterviewersForDay } from "../helpers/selectors";
 
 export default function Application() {
 
-  const { state, setDay, bookInterview, cancelInterview } = useApplicationData()
+  const { state, setDay, bookInterview, cancelInterview } = useApplicationData();
 
   return (
     <main className="layout">
@@ -31,9 +31,9 @@ export default function Application() {
           src="images/lhl.png"
           alt="Lighthouse Labs"
         />
-        </section>
-        <section className="schedule">
-          {
+      </section>
+      <section className="schedule">
+        {
           state["appointments"].map(ele => {
             const interviewName = getInterview(state, ele.interview)
             return <Appointment 
@@ -46,9 +46,9 @@ export default function Application() {
               cancelInterview={cancelInterview}
             />
           }) 
-          }
-          <Appointment key="last" time="5pm" />
-        </section>
-      </main>
+        }
+        <Appointment key="last" time="5pm" />
+      </section>
+    </main>
     );
 }

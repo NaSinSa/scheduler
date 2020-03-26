@@ -6,10 +6,10 @@ import axios from "axios";
 
 import Application from "components/Application";
 
-afterEach(cleanup);
 
 describe("Application", () => {
-
+  
+  afterEach(cleanup);
   it("defaults to Monday and changes the schedule when a new day is selected", async () => {
     const { getByText } = render(<Application />);
   

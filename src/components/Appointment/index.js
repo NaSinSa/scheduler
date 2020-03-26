@@ -37,7 +37,7 @@ export default function Appointment(props) {
       props.bookInterview(props.id, interview, edit)
         .then(() => transition(SHOW, true))
         .catch(() => transition(ERROR_SAVE, true))
-    }, 1000)
+    }, 1000);
   };
 
   function deleteApp() {
@@ -111,5 +111,6 @@ export default function Appointment(props) {
           />
         )}
       </article>
-    </>)
-  }
+    </>
+  );
+};

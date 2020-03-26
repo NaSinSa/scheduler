@@ -31,7 +31,7 @@ const useApplicationData = function() {
         ),
         interviewers: all[2]["data"]
       }))
-    })
+    });
   },[state.day]);
 
   const setDay = day => setState({ ...state, day });
@@ -41,7 +41,7 @@ const useApplicationData = function() {
     let spot = 0;
     boolean ? spot-- : spot++;
     const days = state.days.filter(ele => {
-      return [ele.appointments.find(appId => appId === id) ? ele.spots += spot : null, ele]
+      return [ele.appointments.find(appId => appId === id) ? ele.spots += spot : null, ele];
     });
     return setState({...state, days});
   };
@@ -55,8 +55,8 @@ const useApplicationData = function() {
         setState({ 
           ...state,
           appointments,
-        })
-      })
+        });
+      });
   };
   
   function cancelInterview(id) {
