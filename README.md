@@ -12,6 +12,8 @@ Simple interview scheduler which a user can book, edit, and cancel an interview.
 Fork this repository, then clone your fork of this repository.
 Install dependencies with `npm install`.
 
+To setup a database server, please visit: https://github.com/NaSinSa/scheduler-api
+
 ## Running Webpack Development Server
 
 ```sh
