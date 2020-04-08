@@ -48,7 +48,6 @@ const useApplicationData = function() {
 
   function bookInterview(id, interview, edit) {
     const appointments = getAppointmentsById(state.appointments, interview, id);
-    if (!edit) {spotCalculator(id, true)};                  // edit ? editing, no spot change : new booking, spot--
     return axios.put(`/api/appointments/${id}`, { interview: interview })
       .then(res => console.log(res))
       .then(() => {
@@ -56,17 +55,22 @@ const useApplicationData = function() {
           ...state,
           appointments,
         });
+      })
+      .then(() => {
+        if (!edit) {spotCalculator(id, true)}                  // edit ? editing, no spot change : new booking, spot--
       });
   };
   
   function cancelInterview(id) {
-    spotCalculator(id);
     return axios.delete(`/api/appointments/${id}`)
     .then(res => console.log(res))
     .then(() => {
       setState({
         ...state,
       })
+    })
+    .then(() => {
+      spotCalculator(id);
     })
   };
   
