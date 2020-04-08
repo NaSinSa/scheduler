@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import "components/InterviewList.scss";
 import InterviewerListItem from "./InterviewerListItem.js";
 
-const className = require('classnames');
-
 export default function InterviewerList(props) {
   const interviewerListClass = ("interviewers__list");
   const interviewrChecker = props.interviewers.map((ele) => {

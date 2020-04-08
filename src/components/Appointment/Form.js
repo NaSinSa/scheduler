@@ -30,7 +30,7 @@ export default function Form(props) {
       return;
     }
   
-    props.onSave(username, director, edit);
+    onSave(username, director, edit);
   };
 
   return (

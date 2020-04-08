@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 import { getAppointmentsForDay, getAppointmentsById } from "../helpers/selectors";
-import { func } from "prop-types";
 
 const useApplicationData = function() {
   const [state, setState] = useState({
