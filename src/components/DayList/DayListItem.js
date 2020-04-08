@@ -1,6 +1,6 @@
 import React from "react";
 
-import "components/DayListItem.scss";
+import "./DayListItem.scss";
 
 const className = require('classnames');
 
