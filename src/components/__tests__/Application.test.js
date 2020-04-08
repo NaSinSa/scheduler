@@ -4,7 +4,7 @@ import { render, cleanup, waitForElement, fireEvent, getByText, prettyDOM, getAl
 
 import axios from "axios";
 
-import Application from "components/Application";
+import Application from "components/Application/Application";
 
 
 describe("Application", () => {
