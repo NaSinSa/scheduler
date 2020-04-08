@@ -1,7 +1,7 @@
 import React from "react";
 
 
-
+//Mode: a booked appointments
 export default function Show(props) {
   const { student, interviewer, onEdit, onDelete } = props;
   return (

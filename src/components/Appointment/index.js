@@ -14,7 +14,7 @@ import useVisualMode  from "../../hooks/useVisualMode"
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
-const SAVING = "SAVING";
+const SAVING = "SAVING";                  //-INGs are notice to users.
 const DELETING = "DELETING";
 const CONFIRM = "CONFIRM";
 const EDIT = "EDIT";
@@ -32,7 +32,7 @@ export default function Appointment(props) {
       student: name,
       interviewer
     };
-    transition(SAVING);
+    transition(SAVING, false);
     setTimeout(() => {
       props.bookInterview(props.id, interview, edit)
         .then(() => transition(SHOW, true))
@@ -41,12 +41,12 @@ export default function Appointment(props) {
   };
 
   function deleteApp() {
-    transition(CONFIRM);
+    transition(CONFIRM, false);
   };
   
   function confirm(confirm) {  //confirm ? yes, delete it : no, don't
     if (confirm) {
-      transition(DELETING, true);
+      transition(DELETING, false);
       setTimeout(() => {
          props.cancelInterview(props.id)
           .then(() => transition(EMPTY, true))

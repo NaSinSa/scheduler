@@ -1,5 +1,6 @@
 import React from "react";
 
+//Mode: No appointment
 export default function Empty(props) {
   const { onAdd } = props;
 

@@ -5,8 +5,8 @@ import InterviewerList from "components/InterviewList/InterviewList";
 
 export default function Form(props) {
   const { name, interviewers, interviewer, onSave, onCancel, edit } = props;
-  const [username, setUsername] = useState(name || "");
-  const [director, setInterviewer] = useState(interviewer || null);
+  const [username, setUsername] = useState(name || "");                   // username = student name
+  const [director, setInterviewer] = useState(interviewer || null);       // interviewr == director
   const [error, setError] = useState("");
 
   const reset = function() {

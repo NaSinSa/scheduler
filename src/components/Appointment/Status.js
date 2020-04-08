@@ -1,6 +1,6 @@
 import React from "react";
 
-
+//Mode: Messages to a user; Saving, Deleting
 export default function Status(props) {
   const { message } = props;
   return (

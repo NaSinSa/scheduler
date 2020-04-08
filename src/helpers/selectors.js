@@ -7,9 +7,9 @@ const getAppointmentsForDay = function (state, day) {
   }
 };
 
-const getAppointmentsById = (appointments, obj, id) => {               
+const getAppointmentsById = (appointments, interview, id) => {               //interview = {studentName, interview: {id, name}}
   const index = appointments.findIndex(ele => ele.id === id);
-  appointments[index]["interview"] = obj;
+  appointments[index]["interview"] = interview;
   return appointments;
 }
 

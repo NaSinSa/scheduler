@@ -11,7 +11,7 @@ export default function DayList(props) {
         id={ele.id} 
         name={ele.name} 
         spots={ele.spots} 
-        selected={ele.name === props.day} 
+        selected={ele.name === props.day}     //ele.name === Monday, Tuesday, ..., Friday
         setDay={props.setDay} 
       />);
     });

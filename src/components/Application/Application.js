@@ -35,7 +35,7 @@ export default function Application() {
       <section className="schedule">
         {
           state["appointments"].map(ele => {
-            const interviewName = getInterview(state, ele.interview)
+            const interviewName = getInterview(state, ele.interview)    //student name & interviewer, if exists.
             return <Appointment 
               key={ele.id} 
               id={ele.id}

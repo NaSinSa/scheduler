@@ -5,12 +5,12 @@ export default function useVisualMode(initial) {
   const [history, setHistory] = useState([initial]);
 
   const transition = function(mode, replace) {
-    if (!replace) {
-      history.push(mode);
+    if (!replace) {                             //mode == SAVING, DELETING, CONFIRM, SHOW, etc
+      setHistory(prev => [...prev, mode]);      // Do not want to keep transition modes === saving, deleting, confirm, errors, create, edit
       return setMode(mode);
     } else {
       history.pop();
-      history.push(mode);
+      setHistory(() => [...history, mode]);
       return setMode(mode);
     }
   };

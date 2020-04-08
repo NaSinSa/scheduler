@@ -57,7 +57,7 @@ const useApplicationData = function() {
       })
       .then(() => {
         if (!edit) {spotCalculator(id, true)}                  // edit ? editing, no spot change : new booking, spot--
-      });
+      });                                                      // putting here to prevent falsy change in case of server down
   };
   
   function cancelInterview(id) {
